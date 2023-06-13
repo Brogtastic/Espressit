@@ -2,10 +2,32 @@
 
 {% block content %}
 <br />
-<h1 align="center">Notes</h1>
+<h1 align="center">Posts</h1>
+<br />
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
-    <div class="card" style="width: 18rem;">
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <svg class="bd-placeholder-img img-fluid rounded-start" width="100%" height="{{note.noteLength}}"xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image" preserveAspectRatio="none" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#868e96"></rect>
+            <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Image</text>
+          </svg>
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{user.first_name}}</h5>
+            <p class="card-text">{{ note.data }}</p>
+            <p class="card-text"><small class="text-body-secondary">{{ note.date }}</small></p>
+            <button type="button" class="close pb-3" align="right" onClick="deleteNote({{note.id}})">
+              <span aria-hidden="true"><i class="fas fa-trash-alt"></i></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<div class="card" style="width: 18rem;">
         <img src="{{ url_for('static', filename='bootstrap-logo.svg') }}"/>
       <div class="card-body">
         <p class="card-text"> {{ note.data }} </p>
@@ -13,17 +35,20 @@
         <button type="button" class="close" onClick="deleteNote({{note.id}})">
             <span aria-hidden="true">&times;</span>
         </button>
-    </div>
+    </div> -->
     {% endfor %}
 </ul>
 <br />
 <form method="POST">
     <textarea name="note" id="note" class="form-control"></textarea>
     <br />
-    <div align="left">
-        <button type="submit" class="btn btn-primary">Add Note</button>
-        <input type="file" class="form-control" aria-label="file example">
-        bruh
+    <div class="row">
+        <div class="col-md-4">
+            <input type="file" class="form-control" aria-label="file example">
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Add Note</button>
+        </div>
     </div>
 </form>
 {% endblock %}

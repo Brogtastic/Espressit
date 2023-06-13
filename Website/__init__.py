@@ -10,6 +10,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = '649Blarg908Flarg12783'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    #app.config['TIMEZONE'] = 'GMT'  # Replace 'UTC' with the desired timezone
     db.init_app(app)
 
     from .views import views
