@@ -1,22 +1,29 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 
 {% block content %}
+<br />
 <h1 align="center">Notes</h1>
 <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
-    <li class="list-group-item">{{ note.data }}
+    <div class="card" style="width: 18rem;">
+        <img src="{{ url_for('static', filename='bootstrap-logo.svg') }}"/>
+      <div class="card-body">
+        <p class="card-text"> {{ note.data }} </p>
+      </div>
         <button type="button" class="close" onClick="deleteNote({{note.id}})">
             <span aria-hidden="true">&times;</span>
         </button>
-    </li>
+    </div>
     {% endfor %}
 </ul>
 <br />
 <form method="POST">
     <textarea name="note" id="note" class="form-control"></textarea>
     <br />
-    <div align="center">
+    <div align="left">
         <button type="submit" class="btn btn-primary">Add Note</button>
+        <input type="file" class="form-control" aria-label="file example">
+        bruh
     </div>
 </form>
 {% endblock %}
