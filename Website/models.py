@@ -11,7 +11,11 @@ class Note(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     @property
     def noteLength(self):
-        return len(self.data)/1.8 + 180
+        length = len(self.data)
+        if (len(self.data) > 200): length = length/1.68
+        elif (len(self.data) > 390): length = length / 1.66 + 10
+        else: length = length/1.8
+        return length + 180
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)

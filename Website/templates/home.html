@@ -4,7 +4,7 @@
 <br />
 <h1 align="center">Posts</h1>
 <br />
-<ul class="list-group list-group-flush" id="notes">
+<ul class="list-group list-group-flush mb-3" id="notes">
     {% for note in user.notes %}
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
@@ -39,15 +39,20 @@
     {% endfor %}
 </ul>
 <br />
-<form method="POST">
-    <textarea name="note" id="note" class="form-control"></textarea>
+<form method="POST was-validated">
+    <div class="form-floating mb-3">
+        <textarea name="note" id="note" class="form-control" placeholder="Write Anything" style="height: 200px;"></textarea>
+        <label for="note">Write anything...</label>
+    </div>
     <br />
     <div class="row">
-        <div class="col-md-4">
-            <input type="file" class="form-control" aria-label="file example">
+        <div class="mb-3 col-md-4">
+            <input type="file" class="form-control" aria-label="file example" required>
+            <div class="invalid-feedback">Example invalid form file feedback</div>
         </div>
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-primary">Add Note</button>
+        <div class="mb-3 col-md-4 was-validated">
+            <button type="submit" class="btn btn-primary">Make Post</button>
+            <br/>
         </div>
     </div>
 </form>
