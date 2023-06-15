@@ -37,8 +37,9 @@ def home():
         flash('Note added!', category='success')
 
     user = User.query.get(current_user.id)
+    allUsers = User.query.all()
     reversed_notes = list(reversed(user.notes))
-    return render_template("home.html", user=current_user, reversed_notes=reversed_notes)
+    return render_template("home.html", user=current_user, reversed_notes=reversed_notes, allUsers=allUsers)
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():

@@ -4,6 +4,12 @@
 <br />
 <h1 align="center">Posts</h1>
 <br />
+<!--
+<p>Users:</p>
+{% for user in allUsers %}
+<p>{{ user.first_name }}</p>
+{% endfor %}
+-->
 <div class="mb-3 align-items-center justify-content-center" align="center">
     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#postWriting" aria-expanded="false" aria-controls="postWriting">
     Write a new Post
@@ -47,7 +53,7 @@
                 <div class="mt-auto">
                     <div class="row">
                         <div class="col-md-9">
-                            <p class="card-text"><small class="text-body-secondary">{{ note.date }} by {{ user.first_name }}</small></p>
+                            <p class="card-text"><small class="text-body-secondary">{{ note.dateParsed }} by {{ user.first_name }}</small></p>
                         </div>
                         <div class="col-md-3">
                             <button type="button" class="close pb-3" align="right" onClick="deleteNote({{note.id}})" style="font-size: 1rem; margin-top: 5px;">

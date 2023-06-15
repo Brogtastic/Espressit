@@ -6,13 +6,69 @@ import pytz
 from io import BytesIO
 from PIL import Image, ExifTags
 
+
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10000))
-    date = db.Column(db.DateTime(timezone=True), default=datetime.now(pytz.timezone('EST')))
+    date = db.Column(db.DateTime(timezone=True), default=datetime.now(pytz.timezone('America/New_York')))
+
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     image = db.Column(db.String(100))
     title = db.Column(db.String(25))
+
+    @property
+    def dateParsed(self):
+        messydate = str(self.date)
+        year = messydate[:4]
+        month = messydate[5:7]
+        print(month)
+        if month == "01":
+            month = 'January'
+        elif month == '02':
+            month = 'February'
+        elif month == '03':
+            month = 'March'
+        elif month == '04':
+            month = 'April'
+        elif month == '05':
+            month = "May"
+        elif month == "06":
+            month = "June"
+        elif month == '07':
+            month = 'July'
+        elif month == '08':
+            month = 'August'
+        elif month == '09':
+            month = 'September'
+        elif month == '10':
+            month = 'October'
+        elif month == '11':
+            month = 'November'
+        elif month == '12':
+            month = 'December'
+
+        day = messydate[8:10]
+        if day[1] == '1' and day[0] != '1':
+            day += "st"
+        elif day[1] == '2' and day[0] != '1':
+            day += 'nd'
+        elif day[1] == '3' and day[0] != '1':
+            day += 'rd'
+        else:
+            day += 'th'
+
+        time = messydate[11:16]
+        if int(time[:2]) > 12:
+            time = str(int(time[:2]) - 12) + time[2:]
+            time += 'pm'
+        elif time[:2] == '12':
+            time += 'pm'
+        else:
+            if int(time[:2]) < 10:
+                time = time[1:]
+            time += 'am'
+
+        return month + " " + day + ", " + year + ", at " + time
 
     @property
     def noteLength(self):
