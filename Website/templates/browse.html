@@ -5,15 +5,16 @@
 <h1 align="center">Browse</h1>
 <br />
 
-{% for user in allUsers %}
-    <h2>{{ user.first_name }}</h2>
+{% for this_user in allUsers %}
+    <h2>{{ this_user.first_name }}</h2>
     <ul class="list-group list-group-flush mb-3 align-items-center justify-content-center" id="notes">
-    {% for note in user.reversed_notes %}
+    {% for note in this_user.reversed_notes %}
+    {% if note.visibility == 1 %}
     <div class="card mb-3" style="max-width: 800px; min-width: 400px;">
       <div class="row g-0">
         {% if note.image %}
         <div class="col-md-4">
-                <img src="{{ url_for('static', filename='uploads/' + note.image) }}" style="width: auto; max-width: 240px; height: auto; min-height: 152px; border-radius: 3%;" alt="Image">
+            <img src="{{ url_for('static', filename='uploads/' + note.image) }}" style="width: auto; max-width: 240px; height: auto; min-height: 152px; border-radius: 3%;" alt="Image">
         </div>
         {% endif %}
         <div class="{% if note.image %}col-md-8{% else %}col-md-10.5{% endif %}">
@@ -23,19 +24,22 @@
                 <div class="mt-auto">
                     <div class="row">
                         <div class="col-md-9">
-                            <p class="card-text"><small class="text-body-secondary">{{ note.dateParsed }} by {{ user.first_name }}</small></p>
+                            <p class="card-text"><small class="text-body-secondary">{{ note.dateParsed }} by {{ this_user.first_name }}</small></p>
                         </div>
+                        {% if user.first_name == this_user.first_name %}
                         <div class="col-md-3">
                             <button type="button" class="close pb-3" align="right" onClick="deleteNote({{note.id}})" style="font-size: 1rem; margin-top: 5px;">
                                 <span aria-hidden="true"><i class="fas fa-trash-alt"></i></span>
                             </button>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
       </div>
     </div>
+    {% endif %}
     {% endfor %}
 <br/>
 </ul>

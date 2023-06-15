@@ -16,6 +16,8 @@ class Note(db.Model):
     image = db.Column(db.String(100))
     title = db.Column(db.String(25))
 
+    visibility = db.Column(db.Integer)
+
     @property
     def dateParsed(self):
         messydate = str(self.date)

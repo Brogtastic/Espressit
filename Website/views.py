@@ -18,6 +18,7 @@ def home():
         note = request.form.get('note')
         title = request.form.get('title')
         image = request.files.get('image')
+        visibility = int(request.form.get('visibility'))
 
         configure_uploads(current_app, photos)
 
@@ -31,7 +32,7 @@ def home():
             filename = photos.save(image)
         else:
             filename = None
-        new_note = Note(data=note, image=filename, title=title, user_id=current_user.id)
+        new_note = Note(data=note, image=filename, title=title, user_id=current_user.id, visibility=visibility)
         db.session.add(new_note)
         db.session.commit()
         flash('Note added!', category='success')
