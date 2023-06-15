@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from sqlalchemy.sql import func
 from datetime import datetime
 import pytz
+from PIL import Image
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,6 +19,17 @@ class Note(db.Model):
         elif (len(self.data) > 390): length = length / 1.66 + 10
         else: length = length/1.8
         return length + 180
+    
+    @property
+    def imageWidth(self):
+        width = self.image.width
+        return width
+
+    @property
+    def imageHeight(self):
+        height = self.image.height
+        return height
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
