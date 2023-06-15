@@ -1,44 +1,14 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% extends "base.html" %} {% block title %}Browse{% endblock %}
 
 {% block content %}
 <br />
-<h1 align="center">Posts</h1>
+<h1 align="center">Browse</h1>
 <br />
-<!--
-<p>Users:</p>
+
 {% for user in allUsers %}
-<p>{{ user.first_name }}</p>
-{% endfor %}
--->
-<div class="mb-3 align-items-center justify-content-center" align="center">
-    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#postWriting" aria-expanded="false" aria-controls="postWriting">
-    Write a new Post
-    </button>
-</div>
-<br />
-<form method="POST" enctype="multipart/form-data" class="collapse" id="postWriting">
-    <div class="form-group form-floating mb-3">
-        <input class="form-control" id="title" name="title" placeholder="Enter title"/>
-        <label for="title" class="text-muted">Title your post!</label>
-    </div>
-    <div class="form-floating mb-3">
-        <textarea name="note" id="note" class="form-control" placeholder="Write Anything" style="height: 100px;"></textarea>
-        <label for="note" class="text-muted">Write anything...</label>
-    </div>
-    <br />
-    <div class="row">
-        <div class="mb-3 col-md-4">
-            <input name="image" id="image" type="file" class="form-control" aria-label="file example" accept="image/*">
-            <div class="invalid-feedback">Example invalid form file feedback</div>
-        </div>
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-primary">Add Note</button>
-        </div>
-    </div>
-</form>
-<br />
-<ul class="list-group list-group-flush mb-3 align-items-center justify-content-center" id="notes">
-    {% for note in reversed_notes %}
+    <h2>{{ user.first_name }}</h2>
+    <ul class="list-group list-group-flush mb-3 align-items-center justify-content-center" id="notes">
+    {% for note in user.reversed_notes %}
     <div class="card mb-3" style="max-width: 800px; min-width: 400px;">
       <div class="row g-0">
         {% if note.image %}
@@ -69,4 +39,5 @@
     {% endfor %}
 <br/>
 </ul>
+{% endfor %}
 {% endblock %}

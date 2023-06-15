@@ -30,6 +30,13 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
+@auth.route('/browse')
+def browse():
+    allUsers = User.query.all()
+    for user in allUsers:
+        user.reversed_notes = list(reversed(user.notes))
+    return render_template("browse.html", allUsers=allUsers, user=current_user)
+
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
