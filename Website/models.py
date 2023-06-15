@@ -3,7 +3,8 @@ from flask_login import UserMixin
 from sqlalchemy.sql import func
 from datetime import datetime
 import pytz
-from PIL import Image
+from io import BytesIO
+from PIL import Image, ExifTags
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -20,17 +21,60 @@ class Note(db.Model):
         elif (len(self.data) > 390): length = length / 1.66 + 10
         else: length = length/1.8
         return length + 180
-    
-    @property
-    def imageWidth(self):
-        width = self.image.width
-        return width
 
     @property
     def imageHeight(self):
-        height = self.image.height
-        return height
+        if self.image:
+            img = Image.open('Website/static/uploads/' + self.image)
+            width, height = img.size
 
+            # Check for rotation information in EXIF metadata
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation':
+                    break
+
+            exif_data = img._getexif()
+            if exif_data is not None:
+                exif = dict(exif_data.items())
+                if orientation in exif:
+                    if exif[orientation] == 6 or exif[orientation] == 8:
+                        # Swap width and height if the image is rotated 90 or 270 degrees
+                        height, width = width, height
+
+            return height
+        else:
+            return 0
+
+    @property
+    def imageWidth(self):
+        if self.image:
+            img = Image.open('Website/static/uploads/' + self.image)
+            width, height = img.size
+
+            # Check for rotation information in EXIF metadata
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation':
+                    break
+
+            exif_data = img._getexif()
+            if exif_data is not None:
+                exif = dict(exif_data.items())
+                if orientation in exif:
+                    if exif[orientation] == 6 or exif[orientation] == 8:
+                        # Swap width and height if the image is rotated 90 or 270 degrees
+                        width, height = height, width
+
+            return width
+        else:
+            return 0
+
+    @property
+    def horizontal(self):
+        img = Image.open('static/uploads/'+self.image)
+        if (self.img.width > self.img.height):
+            return True
+        else:
+            return False
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
