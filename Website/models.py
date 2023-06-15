@@ -11,6 +11,7 @@ class Note(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=datetime.now(pytz.timezone('EST')))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     image = db.Column(db.String(100))
+    title = db.Column(db.String(25))
 
     @property
     def noteLength(self):

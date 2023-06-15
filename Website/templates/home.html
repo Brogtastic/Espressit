@@ -4,32 +4,47 @@
 <br />
 <h1 align="center">Posts</h1>
 <br />
-<ul class="list-group list-group-flush mb-3" id="notes">
-    {% for note in user.notes %}
-    <div class="card mb-3" style="max-width: 540px;">
-      <div class="row g-0">
-        <div class="col-md-4">
-            {% if note.image %}
-                <img src="{{ url_for('static', filename='uploads/' + note.image) }}" style="width: 100%; height: auto; border-radius: 3%;" alt="Image">
-            {% else %}
-                <svg class="bd-placeholder-img img-fluid rounded-start" width="100%" height="{{note.noteLength}}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image" preserveAspectRatio="none" focusable="false">
-                    <title>Placeholder</title>
-                    <rect width="100%" height="100%" fill="#868e96"></rect>
-                    <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Image</text>
-                </svg>
-            {% endif %}
+<br />
+<form method="POST" enctype="multipart/form-data">
+    <div class="form-group form-floating mb-3">
+        <input class="form-control" id="title" name="title" placeholder="Enter title"/>
+        <label for="title" class="text-muted">Title your post!</label>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea name="note" id="note" class="form-control" placeholder="Write Anything" style="height: 100px;"></textarea>
+        <label for="note" class="text-muted">Write anything...</label>
+    </div>
+    <br />
+    <div class="row">
+        <div class="mb-3 col-md-4">
+            <input name="image" id="image" type="file" class="form-control" aria-label="file example" accept="image/*">
+            <div class="invalid-feedback">Example invalid form file feedback</div>
         </div>
-                <div class="col-md-8">
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Add Note</button>
+        </div>
+    </div>
+</form>
+<ul class="list-group list-group-flush mb-3 align-items-center justify-content-center" id="notes">
+    {% for note in user.notes %}
+    <div class="card mb-3" style="max-width: 540px; min-width: 400px;">
+      <div class="row g-0">
+        {% if note.image %}
+        <div class="col-md-4">
+                <img src="{{ url_for('static', filename='uploads/' + note.image) }}" style="width: 100%; height: auto; border-radius: 3%;" alt="Image">
+        </div>
+        {% endif %}
+        <div class="{% if note.image %}col-md-8{% else %}col-md-10.5{% endif %}">
             <div class="card-body d-flex flex-column h-100">
-                <h5 class="card-title">{{user.first_name}}</h5>
+                <h5 class="card-title">{{ note.title }}</h5>
                 <p class="card-text">{{ note.data }}</p>
                 <div class="mt-auto">
                     <div class="row">
-                        <div class="col-md-9 align-self-end">
-                            <p class="card-text"><small class="text-body-secondary">{{ note.date }}</small></p>
+                        <div class="col-md-9">
+                            <p class="card-text"><small class="text-body-secondary">{{ note.date }} by {{ user.first_name }}</small></p>
                         </div>
-                        <div class="col-md-3 align-self-end">
-                            <button type="button" class="close pb-3" align="right" onClick="deleteNote({{note.id}})" style="font-size: 1rem;">
+                        <div class="col-md-3">
+                            <button type="button" class="close pb-3" align="right" onClick="deleteNote({{note.id}})" style="font-size: 1rem; margin-top: 5px;">
                                 <span aria-hidden="true"><i class="fas fa-trash-alt"></i></span>
                             </button>
                         </div>
@@ -49,24 +64,8 @@
         </button>
     </div> -->
     {% endfor %}
+<br/>
 </ul>
-<br />
-<form method="POST" enctype="multipart/form-data">
-    <div class="form-floating mb-3">
-        <textarea name="note" id="note" class="form-control" placeholder="Write Anything" style="height: 200px;"></textarea>
-        <label for="note" class="text-muted">Write anything...</label>
-    </div>
-    <br />
-    <div class="row">
-        <div class="mb-3 col-md-4">
-            <input name="image" id="image" type="file" class="form-control" aria-label="file example" accept="image/*">
-            <div class="invalid-feedback">Example invalid form file feedback</div>
-        </div>
-        <div class="col-md-4">
-            <button type="submit" class="btn btn-primary">Add Note</button>
-        </div>
-    </div>
-</form>
 <!--
 <form method="POST">
     <textarea name="note" id="note" class="form-control h-300"></textarea>

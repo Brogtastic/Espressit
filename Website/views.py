@@ -16,24 +16,25 @@ photos = UploadSet('photos', IMAGES)  # Create an UploadSet for photo files
 def home():
     if request.method == 'POST':
         note = request.form.get('note')
+        title = request.form.get('title')
         image = request.files.get('image')
 
         configure_uploads(current_app, photos)
 
         if len(note) < 1:
             flash('Note is too short!', category='error')
+        elif len(title) < 1:
+            flash('Title is too short!', category='error')
+        elif len(title) > 25:
+            flash('Title is too long!', category='error')
         elif image and image.filename != '':
             filename = photos.save(image)
-            new_note = Note(data=note, image=filename, user_id=current_user.id)
-            db.session.add(new_note)
-            db.session.commit()
-            flash('Note added!', category='success')
         else:
             filename = None
-            new_note = Note(data=note, image=filename, user_id=current_user.id)
-            db.session.add(new_note)
-            db.session.commit()
-            flash('Note added!', category='success')
+        new_note = Note(data=note, image=filename, title=title, user_id=current_user.id)
+        db.session.add(new_note)
+        db.session.commit()
+        flash('Note added!', category='success')
 
     return render_template("home.html", user=current_user)
 
