@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash, jsonify, current_a
 from flask_login import login_required, current_user
 from flask_uploads import UploadSet, IMAGES, configure_uploads
 from . import db
-from .models import Note
+from .models import Note, User
 import json
 from Website import create_app
 from os import path
@@ -36,7 +36,9 @@ def home():
         db.session.commit()
         flash('Note added!', category='success')
 
-    return render_template("home.html", user=current_user)
+    user = User.query.get(current_user.id)
+    reversed_notes = list(reversed(user.notes))
+    return render_template("home.html", user=current_user, reversed_notes=reversed_notes)
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():

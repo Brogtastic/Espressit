@@ -5,7 +5,12 @@
 <h1 align="center">Posts</h1>
 <br />
 <br />
-<form method="POST" enctype="multipart/form-data">
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#postWriting" aria-expanded="false" aria-controls="postWriting">
+Write a new Post
+</button>
+<br />
+<br />
+<form method="POST" enctype="multipart/form-data" class="collapse" id="postWriting">
     <div class="form-group form-floating mb-3">
         <input class="form-control" id="title" name="title" placeholder="Enter title"/>
         <label for="title" class="text-muted">Title your post!</label>
@@ -25,8 +30,10 @@
         </div>
     </div>
 </form>
+<br />
+<br />
 <ul class="list-group list-group-flush mb-3 align-items-center justify-content-center" id="notes">
-    {% for note in user.notes %}
+    {% for note in reversed_notes %}
     <div class="card mb-3" style="max-width: 540px; min-width: 400px;">
       <div class="row g-0">
         {% if note.image %}
