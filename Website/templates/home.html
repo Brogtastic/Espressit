@@ -39,21 +39,35 @@
     {% endfor %}
 </ul>
 <br />
-<form method="POST was-validated">
+<form method="POST">
     <div class="form-floating mb-3">
         <textarea name="note" id="note" class="form-control" placeholder="Write Anything" style="height: 200px;"></textarea>
-        <label for="note">Write anything...</label>
+        <label for="note" class="text-muted">Write anything...</label>
     </div>
     <br />
     <div class="row">
         <div class="mb-3 col-md-4">
-            <input type="file" class="form-control" aria-label="file example" required>
+            <input name="image" id="image" type="file" class="form-control" aria-label="file example" accept="image/*">
             <div class="invalid-feedback">Example invalid form file feedback</div>
         </div>
-        <div class="mb-3 col-md-4 was-validated">
-            <button type="submit" class="btn btn-primary">Make Post</button>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Add Note</button>
             <br/>
         </div>
     </div>
 </form>
+<!--
+<form method="POST">
+    <textarea name="note" id="note" class="form-control h-300"></textarea>
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <input type="file" class="form-control" aria-label="file example">
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Add Note</button>
+        </div>
+    </div>
+</form>
+-->
 {% endblock %}

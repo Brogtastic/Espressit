@@ -1,8 +1,11 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, flash, jsonify, current_app, send_from_directory, url_for
 from flask_login import login_required, current_user
+from flask_uploads import UploadSet, IMAGES, configure_uploads
 from . import db
 from .models import Note
 import json
+from Website import create_app
+from os import path
 
 views = Blueprint('views', __name__)
 
@@ -11,14 +14,23 @@ views = Blueprint('views', __name__)
 def home():
     if request.method == 'POST':
         note = request.form.get('note')
+        image = request.files.get('image')
+
         if len(note) < 1:
             flash('Note is too short!', category='error')
-        else:
-            new_note = Note(data=note, user_id=current_user.id)  # providing the schema for the note
-            db.session.add(new_note)  # adding the note to the database
+        elif image:
+            photos = current_app.config['UPLOADED_PHOTOS_DEST']
+            filename = photos.save(image)
+            new_note = Note(data=note, image=filename, user_id=current_user.id)
+            db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
-
+        else:
+            filename = None
+            new_note = Note(data=note, image=filename, user_id=current_user.id)
+            db.session.add(new_note)
+            db.session.commit()
+            flash('Note added!', category='success')
 
     return render_template("home.html", user=current_user)
 

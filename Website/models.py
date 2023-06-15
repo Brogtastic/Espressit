@@ -9,6 +9,7 @@ class Note(db.Model):
     data = db.Column(db.String(10000))
     date = db.Column(db.DateTime(timezone=True), default=datetime.now(pytz.timezone('EST')))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
     @property
     def noteLength(self):
         length = len(self.data)
