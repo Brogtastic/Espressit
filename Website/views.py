@@ -9,6 +9,8 @@ from os import path
 
 views = Blueprint('views', __name__)
 
+photos = UploadSet('photos', IMAGES)  # Create an UploadSet for photo files
+
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -16,10 +18,11 @@ def home():
         note = request.form.get('note')
         image = request.files.get('image')
 
+        configure_uploads(current_app, photos)
+
         if len(note) < 1:
             flash('Note is too short!', category='error')
-        elif image:
-            photos = current_app.config['UPLOADED_PHOTOS_DEST']
+        elif image and image.filename != '':
             filename = photos.save(image)
             new_note = Note(data=note, image=filename, user_id=current_user.id)
             db.session.add(new_note)

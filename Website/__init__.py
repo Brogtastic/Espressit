@@ -14,8 +14,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = '649Blarg908Flarg12783'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    app.config['UPLOADED_PHOTOS_DEST'] = 'uploads'
-    app.config['UPLOADED_PHOTOS_DEST'] = 'path/to/uploaded/images'  # Specify the directory to store the uploaded images
+    app.config['UPLOADED_PHOTOS_DEST'] = 'Website/static/uploads'
     photos = UploadSet('photos', IMAGES)
     configure_uploads(app, photos)
 

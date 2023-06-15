@@ -14,6 +14,11 @@
             <rect width="100%" height="100%" fill="#868e96"></rect>
             <text x="35%" y="50%" fill="#dee2e6" dy=".3em">Image</text>
           </svg>
+            {% if note.image %}
+                <div class="mt-5">
+                  <img src="{{ url_for('static', filename='uploads/' + note.image) }}" style="width: 400px;">
+                </div>
+            {% endif %}
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -39,7 +44,7 @@
     {% endfor %}
 </ul>
 <br />
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     <div class="form-floating mb-3">
         <textarea name="note" id="note" class="form-control" placeholder="Write Anything" style="height: 200px;"></textarea>
         <label for="note" class="text-muted">Write anything...</label>
@@ -52,7 +57,6 @@
         </div>
         <div class="col-md-4">
             <button type="submit" class="btn btn-primary">Add Note</button>
-            <br/>
         </div>
     </div>
 </form>
