@@ -23,7 +23,6 @@ class Note(db.Model):
         messydate = str(self.date)
         year = messydate[:4]
         month = messydate[5:7]
-        print(month)
         if month == "01":
             month = 'January'
         elif month == '02':
