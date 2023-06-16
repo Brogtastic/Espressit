@@ -30,6 +30,8 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
+
+
 @auth.route('/browse', methods=['GET', 'POST'])
 def browse():
     allUsers = User.query.all()
@@ -37,23 +39,22 @@ def browse():
 
     sorting = 1
 
-    #for user in allUsers:
-    #    user.reversed_notes = list(reversed(user.notes))
-
     sorted_notes = sorted(allNotes, key=lambda note: (note.date, allNotes.index(note)), reverse=True)
 
     if request.method == 'POST':
         sorting = int(request.form.get('sorting'))
-        if(sorting == 1):
-            #Sort by newest
+        if sorting == 1:
+            # Sort by newest
             sorted_notes = sorted(allNotes, key=lambda note: (note.date, allNotes.index(note)), reverse=True)
-        elif(sorting == 2):
-            #Sort by oldest
+        elif sorting == 2:
+            # Sort by oldest
             sorted_notes = sorted(allNotes, key=lambda note: (note.date, allNotes.index(note)), reverse=False)
 
-
-
     return render_template("browse.html", allUsers=allUsers, user=current_user, sorted_notes=sorted_notes, sorting=sorting)
+
+
+
+
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():

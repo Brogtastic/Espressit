@@ -16,19 +16,27 @@ Title
 Username
 Content
 -->
+<div class="row">
+    <form method="POST" enctype="multipart/form-data" id="postWriting" class="col-md-4 mb-3">
+        <div class="d-flex">
+            <select name="sorting" id="sorting" class="form-select col-md-4 me-3" aria-label="Default select example">
+                <option value="1" {% if sorting == 1 %} selected {%endif%}>Newest</option>
+                <option value="2" {% if sorting == 2 %} selected {%endif%}>Oldest</option>
+            </select>
+            <button type="submit" class="btn btn-primary" style="padding-left: 10px;">Sort</button>
+        </div>
+    </form>
+    <form class="col-md-4" role="search">
+        <div class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
+    </form>
+</div>
+<br/>
 
-<form method="POST" enctype="multipart/form-data" id="postWriting">
-  <div class="mb-3 col-md-2">
-      <select name="sorting" id="sorting" class="form-select" aria-label="Default select example">
-        <option value = "1" {% if sorting == 1 %} selected {%endif%}>Newest</option>
-        <option value="2"  {% if sorting == 2 %} selected {%endif%}>Oldest</option>
-      </select>
-  </div>
-  <div class="col-md-4">
-      <button type="submit" class="btn btn-primary">Search</button>
-  </div>
-</form>
 {% for note in sorted_notes %}
+    {% set myuser = allUsers | get_user_by_id(note.user_id) %}
     <ul class="list-group list-group-flush mb-3 align-items-center justify-content-center" id="notes">
     {% if note.visibility == 1 %}
     <div class="card mb-3" style="max-width: 800px; min-width: 400px;">
@@ -45,17 +53,17 @@ Content
                 <div class="mt-auto">
                     <div class="row">
                         <div class="col-md-9">
-                            {% set myuser = user.query.get(note.user_id) %}
-                            <p class="card-text"><small class="text-body-secondary">{{ note.dateParsed }} by {{ myuser.first_name }}</small></p>
+                            {% if myuser %}
+                                <p class="card-text"><small class="text-body-secondary">{{ note.dateParsed }} by {{ myuser.first_name }}</small></p>
+                            {% endif %}
                         </div>
-                        {% set myuser = user.query.get(note.user_id) %}
-                        {% if user.first_name == myuser.first_name %}
                         <div class="col-md-3">
+                            {% if myuser and user.first_name == myuser.first_name %}
                             <button type="button" class="close pb-3 delete-button" align="right" onClick="deleteNote({{note.id}})" style="font-size: 1rem; margin-top: 5px;" style="opacity: 0;">
                                 <span aria-hidden="true"><i class="fas fa-trash-alt"></i></span>
                             </button>
+                            {% endif %}
                         </div>
-                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -63,17 +71,8 @@ Content
       </div>
     </div>
     {% endif %}
-<br/>
 </ul>
 {% endfor %}
-<!--
-{% for note in sorted_notes %}
-  <h3>{{ note.title }}</h3>
-  <h3>{{ note.data }}</h3>
-  {% set myuser = user.query.get(note.user_id) %}
-  <p>By: {{ myuser.first_name }}</p>
-{% endfor %}
--->
 
 
 {% endblock %}

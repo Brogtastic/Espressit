@@ -10,11 +10,19 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
+def get_user_by_id(users, user_id):
+    for user in users:
+        if user.id == user_id:
+            return user
+    return None
+
+
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = '649Blarg908Flarg12783'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['UPLOADED_PHOTOS_DEST'] = 'Website/static/uploads'
+    app.jinja_env.filters['get_user_by_id'] = get_user_by_id
     photos = UploadSet('photos', IMAGES)
     configure_uploads(app, photos)
 
