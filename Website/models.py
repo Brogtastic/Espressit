@@ -9,12 +9,12 @@ from PIL import Image, ExifTags
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(10000))
+    data = db.Column(db.String(1500))
     date = db.Column(db.DateTime(timezone=True), default=datetime.now(pytz.timezone('America/New_York')))
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     image = db.Column(db.String(100))
-    title = db.Column(db.String(25))
+    title = db.Column(db.String(40))
 
     visibility = db.Column(db.Integer)
 
@@ -79,6 +79,11 @@ class Note(db.Model):
         elif (len(self.data) > 390): length = length / 1.66 + 10
         else: length = length/1.8
         return length + 180
+
+    @property
+    def titleLength(self):
+        length = len(self.title)
+        return length
 
     @property
     def imageHeight(self):

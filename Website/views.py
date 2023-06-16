@@ -24,18 +24,25 @@ def home():
 
         if len(note) < 1:
             flash('Note is too short!', category='error')
+            filename = None
         elif len(title) < 1:
             flash('Title is too short!', category='error')
-        elif len(title) > 25:
+            filename = None
+        elif len(title) > 40:
             flash('Title is too long!', category='error')
+            filename = None
         elif image and image.filename != '':
             filename = photos.save(image)
+            new_note = Note(data=note, image=filename, title=title, user_id=current_user.id, visibility=visibility)
+            db.session.add(new_note)
+            db.session.commit()
+            flash('Note added!', category='success')
         else:
             filename = None
-        new_note = Note(data=note, image=filename, title=title, user_id=current_user.id, visibility=visibility)
-        db.session.add(new_note)
-        db.session.commit()
-        flash('Note added!', category='success')
+            new_note = Note(data=note, image=filename, title=title, user_id=current_user.id, visibility=visibility)
+            db.session.add(new_note)
+            db.session.commit()
+            flash('Note added!', category='success')
 
     user = User.query.get(current_user.id)
     allUsers = User.query.all()

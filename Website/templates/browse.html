@@ -28,7 +28,7 @@
                         </div>
                         {% if user.first_name == this_user.first_name %}
                         <div class="col-md-3">
-                            <button type="button" class="close pb-3" align="right" onClick="deleteNote({{note.id}})" style="font-size: 1rem; margin-top: 5px;">
+                            <button type="button" class="close pb-3 delete-button" align="right" onClick="deleteNote({{note.id}})" style="font-size: 1rem; margin-top: 5px;" style="opacity: 0;">
                                 <span aria-hidden="true"><i class="fas fa-trash-alt"></i></span>
                             </button>
                         </div>

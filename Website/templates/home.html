@@ -2,7 +2,7 @@
 
 {% block content %}
 <br />
-<h1 align="center">Posts</h1>
+<h1 align="center">{{ user.first_name }}'s Posts</h1>
 <br />
 <!--
 <p>Users:</p>
@@ -18,11 +18,11 @@
 <br />
 <form method="POST" enctype="multipart/form-data" class="collapse" id="postWriting">
     <div class="form-group form-floating mb-3">
-        <input class="form-control" id="title" name="title" placeholder="Enter title"/>
+        <input class="form-control" id="title" name="title" placeholder="Enter title" maxlength="25"/>
         <label for="title" class="text-muted">Title your post!</label>
     </div>
     <div class="form-floating mb-3">
-        <textarea name="note" id="note" class="form-control" placeholder="Write Anything" style="height: 100px;"></textarea>
+        <textarea name="note" id="note" class="form-control" placeholder="Write Anything" maxlength="1500" style="height: 100px;"></textarea>
         <label for="note" class="text-muted">Write anything...</label>
     </div>
     <br />
@@ -53,7 +53,7 @@
         </div>
         {% endif %}
         <div class="{% if note.image %}col-md-8{% else %}col-md-10.5{% endif %}">
-            <div class="card-body d-flex flex-column h-100" style="{% if note.imageWidth > note.imageHeight %} padding-left:4rem; {% else %} padding-left: 2rem; min-width:460px{% endif %}">
+            <div class="card-body d-flex flex-column h-100" style="{% if note.imageWidth > note.imageHeight %}{% if note.titleLength > 15 %}padding-left:2rem; padding-right:3rem;{% else %}padding-left:4rem;{% endif %} {% else %} padding-left: 2rem; min-width:460px{% endif %}">
                 <h5 class="card-title">{{ note.title }}</h5>
                 <p class="card-text">{{ note.data }}</p>
                 <div class="mt-auto">
@@ -62,7 +62,7 @@
                             <p class="card-text"><small class="text-body-secondary">{{ note.dateParsed }} by {{ user.first_name }}</small></p>
                         </div>
                         <div class="col-md-3">
-                            <button type="button" class="close pb-3" align="right" onClick="deleteNote({{note.id}})" style="font-size: 1rem; margin-top: 5px;">
+                            <button type="button" class="close pb-3 delete-button" align="right" onClick="deleteNote({{note.id}})" style="font-size: 1rem; margin-top: 5px;" style="opacity: 0;">
                                 <span aria-hidden="true"><i class="fas fa-trash-alt"></i></span>
                             </button>
                         </div>
