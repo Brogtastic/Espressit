@@ -33,3 +33,12 @@ cards.forEach(card => {
         deleteButton.style.transition = 'opacity 0.2s ease-in-out';
     }
 });
+
+const textarea = document.getElementById('note');
+const counter = document.getElementById('counter');
+const maxCount = 1500;
+
+textarea.addEventListener('input', function() {
+    const remainingChars = maxCount - textarea.value.length;
+    counter.innerHTML = remainingChars;
+});
