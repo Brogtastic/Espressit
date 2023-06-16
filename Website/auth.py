@@ -42,6 +42,7 @@ def browse():
     allNotes = Note.query.all()
 
     sorting = 1
+    search_filter = 1
 
     sorted_notes = sorted(allNotes, key=lambda note: (note.date, allNotes.index(note)), reverse=True)
 
@@ -60,21 +61,24 @@ def browse():
             print(search)
             search_filter = request.form.get('filter')
 
-            if search_filter == 'title':
+            #Search Titles
+            if search_filter == 1:
                 for note in allNotes:
                     if search.lower() in note.title.lower():
                         note.presentInSearch = True
                     else:
                         note.presentInSearch = False
 
-            if search_filter == 'content':
+            #Search Content
+            if search_filter == 2:
                 for note in allNotes:
                     if search.lower() in note.data.lower():
                         note.presentInSearch = True
                     else:
                         note.presentInSearch = False
 
-            if search_filter == 'user':
+            #Search Users
+            if search_filter == 3:
                 for note in allNotes:
                     myuser = get_user_by_id(note.user_id)
                     if search.lower() in myuser.first_name.lower():
@@ -82,7 +86,7 @@ def browse():
                     else:
                         note.presentInSearch = False
 
-    return render_template("browse.html", allUsers=allUsers, user=current_user, sorted_notes=sorted_notes, sorting=sorting)
+    return render_template("browse.html", allUsers=allUsers, user=current_user, sorted_notes=sorted_notes, sorting=sorting, search_filter=search_filter)
 
 
 

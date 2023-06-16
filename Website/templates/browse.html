@@ -25,9 +25,9 @@ Content
 
                 <div class="btn-group" role="group">
                     <select  class="btn dropdown-toggle btn-outline-success" data-bs-toggle="dropdown" aria-expanded="false" name="filter" id="filter">
-                        <option class="dropdown-item" onclick="changeDropdownText('by Title ')" value="title" selected>by Title</option>
-                        <option class="dropdown-item" onclick="changeDropdownText('by Content ')" value="content">by Content</option>
-                        <option class="dropdown-item" onclick="changeDropdownText('by User ')" value="user"> by User</option>
+                        <option class="dropdown-item" onclick="changeDropdownText('by Title ')" value="1" {% if search_filter == '1' %} selected {% endif %}>by Title</option>
+                        <option class="dropdown-item" onclick="changeDropdownText('by Content ')" value="2" {% if search_filter == '2' %} selected {% endif %}>by Content</option>
+                        <option class="dropdown-item" onclick="changeDropdownText('by User ')" value="3" {% if search_filter == '3' %} selected {% endif %}>by User</option>
                     </select>
                 </div>
             </div>
