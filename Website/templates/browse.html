@@ -16,20 +16,37 @@ Title
 Username
 Content
 -->
-<div class="row">
+<div class="row justify-content-center">
     <form method="POST" enctype="multipart/form-data" id="postWriting" class="col-md-4 mb-3">
+        <div class="d-flex">
+            <input id="search" name="search" class="form-control me-2 col-md-8" type="search" placeholder="Search" aria-label="Search">
+            <div class="btn-group" role="group">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn dropdown-toggle btn-outline-success" data-bs-toggle="dropdown" aria-expanded="false">
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" onclick="changeDropdownText('by Title ')">by Title </a></li>
+                      <li><a class="dropdown-item" onclick="changeDropdownText('by Content ')">by Content </a></li>
+                        <li><a class="dropdown-item" onclick="changeDropdownText('by User ')">by User </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script>
+          function changeDropdownText(text) {
+            const dropdownButton = document.querySelector('.btn.dropdown-toggle');
+            dropdownButton.textContent = text;
+          }
+        </script>
+        <br/>
         <div class="d-flex">
             <select name="sorting" id="sorting" class="form-select col-md-4 me-3" aria-label="Default select example">
                 <option value="1" {% if sorting == 1 %} selected {%endif%}>Newest</option>
                 <option value="2" {% if sorting == 2 %} selected {%endif%}>Oldest</option>
             </select>
-            <button type="submit" class="btn btn-primary" style="padding-left: 10px;">Sort</button>
-        </div>
-    </form>
-    <form class="col-md-4" role="search">
-        <div class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button type="submit" class="btn btn-primary me-4 col-md-3 pl-3" style="padding-left: 10px;">Sort</button>
         </div>
     </form>
 </div>
