@@ -6,6 +6,10 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
+def get_user_by_id(user_id):
+    user = User.query.get(user_id)
+    return user
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -49,6 +53,34 @@ def browse():
         elif sorting == 2:
             # Sort by oldest
             sorted_notes = sorted(allNotes, key=lambda note: (note.date, allNotes.index(note)), reverse=False)
+
+        search_button = request.form.get('search_button')
+        if search_button == 'clicked':
+            search = request.form.get('search')
+            print(search)
+            search_filter = request.form.get('filter')
+
+            if search_filter == 'title':
+                for note in allNotes:
+                    if search.lower() in note.title.lower():
+                        note.presentInSearch = True
+                    else:
+                        note.presentInSearch = False
+
+            if search_filter == 'content':
+                for note in allNotes:
+                    if search.lower() in note.data.lower():
+                        note.presentInSearch = True
+                    else:
+                        note.presentInSearch = False
+
+            if search_filter == 'user':
+                for note in allNotes:
+                    myuser = get_user_by_id(note.user_id)
+                    if search.lower() in myuser.first_name.lower():
+                        note.presentInSearch = True
+                    else:
+                        note.presentInSearch = False
 
     return render_template("browse.html", allUsers=allUsers, user=current_user, sorted_notes=sorted_notes, sorting=sorting)
 

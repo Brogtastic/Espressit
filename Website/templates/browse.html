@@ -21,16 +21,14 @@ Content
         <div class="d-flex">
             <input id="search" name="search" class="form-control me-2 col-md-8" type="search" placeholder="Search" aria-label="Search">
             <div class="btn-group" role="group">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-outline-success" type="submit" id="search_button" name="search_button" value="clicked">Search</button>
 
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn dropdown-toggle btn-outline-success" data-bs-toggle="dropdown" aria-expanded="false">
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" onclick="changeDropdownText('by Title ')">by Title </a></li>
-                      <li><a class="dropdown-item" onclick="changeDropdownText('by Content ')">by Content </a></li>
-                        <li><a class="dropdown-item" onclick="changeDropdownText('by User ')">by User </a></li>
-                    </ul>
+                    <select  class="btn dropdown-toggle btn-outline-success" data-bs-toggle="dropdown" aria-expanded="false" name="filter" id="filter">
+                        <option class="dropdown-item" onclick="changeDropdownText('by Title ')" value="title" selected>by Title</option>
+                        <option class="dropdown-item" onclick="changeDropdownText('by Content ')" value="content">by Content</option>
+                        <option class="dropdown-item" onclick="changeDropdownText('by User ')" value="user"> by User</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -46,7 +44,7 @@ Content
                 <option value="1" {% if sorting == 1 %} selected {%endif%}>Newest</option>
                 <option value="2" {% if sorting == 2 %} selected {%endif%}>Oldest</option>
             </select>
-            <button type="submit" class="btn btn-primary me-4 col-md-3 pl-3" style="padding-left: 10px;">Sort</button>
+            <button type="submit" value="clicked" class="btn btn-primary me-4 col-md-3 pl-3" style="padding-left: 10px;">Sort</button>
         </div>
     </form>
 </div>
@@ -56,6 +54,7 @@ Content
     {% set myuser = allUsers | get_user_by_id(note.user_id) %}
     <ul class="list-group list-group-flush mb-3 align-items-center justify-content-center" id="notes">
     {% if note.visibility == 1 %}
+    {% if note.presentInSearch == True %}
     <div class="card mb-3" style="max-width: 800px; min-width: 400px;">
       <div class="row g-0">
         {% if note.image %}
@@ -87,6 +86,7 @@ Content
         </div>
       </div>
     </div>
+    {% endif %}
     {% endif %}
 </ul>
 {% endfor %}

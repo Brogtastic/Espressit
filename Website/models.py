@@ -17,6 +17,7 @@ class Note(db.Model):
     title = db.Column(db.String(40))
 
     visibility = db.Column(db.Integer)
+    presentInSearch = True
 
     @property
     def dateParsed(self):
