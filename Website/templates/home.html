@@ -60,7 +60,16 @@
                 <div class="mt-auto">
                     <div class="row">
                         <div class="col-md-9">
-                            <p class="card-text"><small class="text-body-secondary">{{ note.dateParsed }} by {{ user.first_name }}</small></p>
+                            <p class="card-text">
+                                <small class="text-body-secondary">
+                                    {% if note.visibility == 2 %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16" style="opacity: 0.5;">
+                                      <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                    </svg>
+                                    {% endif %}
+                                    {{ note.dateParsed }} by {{ user.first_name }}
+                                </small>
+                            </p>
                         </div>
                         <div class="col-md-3">
                             <button type="button" class="close pb-3 delete-button" align="right" onClick="deleteNote({{note.id}})" style="font-size: 1rem; margin-top: 5px;" style="opacity: 0;">
