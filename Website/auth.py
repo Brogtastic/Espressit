@@ -58,11 +58,11 @@ def browse():
         search_button = request.form.get('search_button')
         if search_button == 'clicked':
             search = request.form.get('search')
-            print(search)
+            print("Search: " + search)
             search_filter = request.form.get('filter')
 
             #Search Titles
-            if search_filter == 1:
+            if search_filter == '1':
                 for note in allNotes:
                     if search.lower() in note.title.lower():
                         note.presentInSearch = True
@@ -70,7 +70,7 @@ def browse():
                         note.presentInSearch = False
 
             #Search Content
-            if search_filter == 2:
+            if search_filter == '2':
                 for note in allNotes:
                     if search.lower() in note.data.lower():
                         note.presentInSearch = True
@@ -78,7 +78,7 @@ def browse():
                         note.presentInSearch = False
 
             #Search Users
-            if search_filter == 3:
+            if search_filter == '3':
                 for note in allNotes:
                     myuser = get_user_by_id(note.user_id)
                     if search.lower() in myuser.first_name.lower():
