@@ -1,19 +1,28 @@
 {% extends "base.html" %} {% block title %}Login{% endblock %}
 
 {% block content %}
-<form method="POST">
-    <br />
-    <h3 align="center">Login</h3>
-    <br />
-    <div class="form-group form-floating mb-3">
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"/>
-        <label for="email" class="text-muted">Email</label>
+<div style="padding-top: 75px;">
+    <div class="card mb-3 container d-flex justify-content-center" style="max-width: 600px; min-width: 400px; min-height:400px; background-color: #77b5d9;">
+        <form method="POST" align="center">
+            <h2 align="center" style="color: white">Login</h2>
+            <br />
+            <div align="center" class="col-md-12">
+                <div class="form-group form-floating">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"/>
+                    <label for="email" class="text-muted">Email</label>
+                </div>
+                <div class="form-group form-floating">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"/>
+                    <label for="password" class="text-muted">Password</label>
+                </div>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <br />
     </div>
-    <div class="form-group form-floating mb-3">
-        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password"/>
-        <label for="password" class="text-muted">Password</label>
-    </div>
-    <br />
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+    <p class="text-center">
+        Don't have an account? <a href="/sign-up">Sign up</a>
+    </p>
+</div>
 {% endblock %}

@@ -43,6 +43,7 @@ def browse():
 
     sorting = 1
     search_filter = 1
+    search = ""
 
     sorted_notes = sorted(allNotes, key=lambda note: (note.date, allNotes.index(note)), reverse=True)
 
@@ -86,7 +87,7 @@ def browse():
                     else:
                         note.presentInSearch = False
 
-    return render_template("browse.html", allUsers=allUsers, user=current_user, sorted_notes=sorted_notes, sorting=sorting, search_filter=search_filter)
+    return render_template("browse.html", allUsers=allUsers, user=current_user, sorted_notes=sorted_notes, sorting=sorting, search_filter=search_filter, search=search)
 
 
 
@@ -120,3 +121,7 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user)
+
+@auth.route('/', methods=['GET', 'POST'])
+def redirect_to_browse():
+    return redirect(url_for('auth.browse'))

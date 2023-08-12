@@ -2,7 +2,7 @@
 
 {% block content %}
 <br />
-<h1 align="center">Browse</h1>
+<h1 align="center">Browse Community Posts</h1>
 <br />
 
 <!--
@@ -19,8 +19,9 @@ Content
 <div class="row justify-content-center">
     <form method="POST" enctype="multipart/form-data" id="postWriting" class="col-md-4 mb-3">
         <div class="d-flex">
-            <input id="search" name="search" class="form-control me-2 col-md-8" type="search" placeholder="Search" aria-label="Search">
+            <input id="search" name="search" class="form-control me-2 col-md-8" type="search" placeholder="Search" aria-label="Search" value= {{ search }}>
             <div class="btn-group" role="group">
+
                 <button class="btn btn-outline-success" type="submit" id="search_button" name="search_button" value="clicked">Search</button>
 
                 <div class="btn-group" role="group">
@@ -28,6 +29,12 @@ Content
                         <option class="dropdown-item" onclick="changeDropdownText('by Title ')" value="1" {% if search_filter == '1' %} selected {% endif %}>by Title</option>
                         <option class="dropdown-item" onclick="changeDropdownText('by Content ')" value="2" {% if search_filter == '2' %} selected {% endif %}>by Content</option>
                         <option class="dropdown-item" onclick="changeDropdownText('by User ')" value="3" {% if search_filter == '3' %} selected {% endif %}>by User</option>
+                    </select>
+                </div>
+                <div class="btn-group" role="group">
+                    <select  class="btn dropdown-toggle btn-outline-success" data-bs-toggle="dropdown" aria-expanded="false" name="sorting" id="sorting">
+                        <option class="dropdown-item" onclick="changeDropdownText('newest')" value="1" {% if sorting == 1 %} selected {% endif %}>Newest</option>
+                        <option class="dropdown-item" onclick="changeDropdownText('oldest')" value="2" {% if sorting == 2 %} selected {% endif %}>Oldest</option>
                     </select>
                 </div>
             </div>
@@ -39,13 +46,6 @@ Content
           }
         </script>
         <br/>
-        <div class="d-flex">
-            <select name="sorting" id="sorting" class="form-select col-md-4 me-3" aria-label="Default select example">
-                <option value="1" {% if sorting == 1 %} selected {%endif%}>Newest</option>
-                <option value="2" {% if sorting == 2 %} selected {%endif%}>Oldest</option>
-            </select>
-            <button type="submit" value="clicked" class="btn btn-primary me-4 col-md-3 pl-3" style="padding-left: 10px;">Sort</button>
-        </div>
     </form>
 </div>
 <br/>

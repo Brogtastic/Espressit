@@ -11,7 +11,7 @@ views = Blueprint('views', __name__)
 
 photos = UploadSet('photos', IMAGES)  # Create an UploadSet for photo files
 
-@views.route('/', methods=['GET', 'POST'])
+@views.route('/my-posts', methods=['GET', 'POST'])
 @login_required
 def home():
     if request.method == 'POST':

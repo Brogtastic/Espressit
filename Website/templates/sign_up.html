@@ -1,26 +1,35 @@
 {% extends "base.html" %} {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<form method="POST">
-    <br />
-    <h3 align="center">Sign Up</h3>
-    <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"/>
+<div style="padding-top: 75px;">
+    <div class="card mb-3 container d-flex justify-content-center" style="max-width: 600px; min-width: 400px; min-height:500px;  background-color: #77b5d9;">
+        <form method="POST">
+            <br />
+            <h3 align="center" style="color: white">Sign Up</h3>
+            <div class="form-group">
+                <label for="email" class="pl-2" style="color: white">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email"/>
+            </div>
+            <div class="form-group">
+                <label for="firstName" class="pl-2" style="color: white">Username</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name"/>
+            </div>
+            <div class="form-group">
+                <label for="password1" class="pl-2" style="color: white">Password</label>
+                <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter password"/>
+            </div>
+            <div class="form-group">
+                <label for="password2" class="pl-2" style="color: white">Password</label>
+                <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password"/>
+            </div>
+            <br />
+            <div align="center">
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="firstName">Username</label>
-        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name"/>
-    </div>
-    <div class="form-group">
-        <label for="password1">Password</label>
-        <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter password"/>
-    </div>
-    <div class="form-group">
-        <label for="password2">Password</label>
-        <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password"/>
-    </div>
-    <br />
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <p class="text-center">
+        Already have an account? <a href="/login">Login</a>
+    </p>
+</div>
 {% endblock %}
