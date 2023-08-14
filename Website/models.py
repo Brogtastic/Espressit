@@ -10,7 +10,7 @@ from PIL import Image, ExifTags
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(1500))
-    date = db.Column(db.DateTime(timezone=True), default=datetime.now(pytz.timezone('America/New_York')))
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     image = db.Column(db.String(100))
@@ -22,6 +22,7 @@ class Note(db.Model):
     @property
     def dateParsed(self):
         messydate = str(self.date)
+        print(messydate)
         year = messydate[:4]
         month = messydate[5:7]
         if month == "01":
@@ -51,12 +52,20 @@ class Note(db.Model):
 
         day = messydate[8:10]
         if day[1] == '1' and day[0] != '1':
+            if (day[0] == '0'):
+                day = day[1]
             day += "st"
         elif day[1] == '2' and day[0] != '1':
+            if (day[0] == '0'):
+                day = day[1]
             day += 'nd'
         elif day[1] == '3' and day[0] != '1':
+            if (day[0] == '0'):
+                day = day[1]
             day += 'rd'
         else:
+            if (day[0] == '0'):
+                day = day[1]
             day += 'th'
 
         time = messydate[11:16]

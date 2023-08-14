@@ -50,15 +50,33 @@
   padding: 16px 32px;
 }
 
-/* Normal link color */
 .profile-link {
-    color: black; /* Set the initial color */
-    text-decoration: none; /* Remove underlines */
-    transition: 0.3s; /* Add transition effect for smooth color change */
+    color: black;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
-/* Change color on hover */
 .profile-link:hover {
-    color: light-blue; /* Set the color for hover */
-    text-decoration: none; /* Remove underlines */
+    color: light-blue;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 80vw;
+    }
+    h4{
+        padding-top: 2vh;
+    }
+    .d-flex {
+        flex-direction: column;
+        padding-left: 4vw;
+        padding-right: 4vw;
+    }
+}
+
+@media (min-width: 769px) {
+    .card {
+        width: 50vw;
+    }
 }

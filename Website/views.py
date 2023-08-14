@@ -4,12 +4,7 @@ from flask_uploads import UploadSet, IMAGES, configure_uploads
 from . import db
 from .models import Note, User
 import json
-from tempfile import NamedTemporaryFile
-import shutil
-import base64
-from io import BytesIO
-from Website import create_app
-from os import path
+import datetime
 
 views = Blueprint('views', __name__)
 
@@ -27,6 +22,8 @@ def home():
 
         configure_uploads(current_app, photos)
 
+        current_date_time = datetime.datetime.now()
+
         if len(note) < 1:
             flash('Note is too short!', category='error')
             filename = None
@@ -38,13 +35,13 @@ def home():
             filename = None
         elif image and image.filename != '':
             filename = photos.save(image)
-            new_note = Note(data=note, image=filename, title=title, user_id=current_user.id, visibility=visibility)
+            new_note = Note(data=note, image=filename, title=title, user_id=current_user.id, visibility=visibility, date=current_date_time)
             db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
         else:
             filename = None
-            new_note = Note(data=note, image=filename, title=title, user_id=current_user.id, visibility=visibility)
+            new_note = Note(data=note, image=filename, title=title, user_id=current_user.id, visibility=visibility, date=current_date_time)
             db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
