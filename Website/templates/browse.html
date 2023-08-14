@@ -56,10 +56,14 @@ Content
     {% if note.visibility == 1 %}
     {% if note.presentInSearch == True %}
     <div class="card mb-3" style="max-width: 800px; min-width: 400px;">
+      <div style="background: #D6EAF8; border-radius: 5px 5px 0px 0px; padding: 10px;">
+          <img src="static/images/linkedin-1.jpg" alt="profile photo" style="border-radius:50%; height: 25px; border: 2px solid #fff;">
+          {{ myuser.first_name }}
+      </div>
       <div class="row g-0">
         {% if note.image %}
         <div class="col-md-4">
-            <img src="{{ url_for('static', filename='uploads/' + note.image) }}" style="width: auto; max-width: 240px; height: auto; min-height: 152px; border-radius: 3%;" alt="Image">
+            <img src="{{ url_for('static', filename='uploads/' + note.image) }}" style="width: auto; max-width: 240px; height: auto; min-height: 152px; border-radius: 0px 5px 5px 5px;" alt="Image">
         </div>
         {% endif %}
         <div class="{% if note.image %}col-md-8{% else %}col-md-10.5{% endif %}">

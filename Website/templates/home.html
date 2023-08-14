@@ -3,6 +3,18 @@
 {% block content %}
 <br />
 <h1 align="center">{{ user.first_name }}'s Posts</h1>
+<form method="POST" enctype="multipart/form-data" id="profileChange">
+    <input type="hidden" name="formIdentifier" value="profile_photo_change">
+    <input type="file" id="imageInput">
+    <div style="height: 400px; width: 400px;">
+        <img id="imagePreview" src="" alt="Uploaded Image">
+    </div>
+    <button id="saveButton">Save Cropped Image</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script src="static/cropper-script.js"></script>
+</form>
+
+
 <br />
 <!--
 <p>Users:</p>
@@ -17,6 +29,7 @@
 </div>
 <br />
 <form method="POST" enctype="multipart/form-data" class="collapse" id="postWriting">
+    <input type="hidden" name="formIdentifier" value="note_submit">
     <div class="form-group form-floating mb-3">
         <input class="form-control" id="title" name="title" placeholder="Enter title" maxlength="25"/>
         <label for="title" class="text-muted">Title your post!</label>
