@@ -6,15 +6,16 @@ function deleteNote(noteId){
         method: 'POST',
         body: JSON.stringify({ noteId: noteId}),
     }).then((_res) => {
-        if (currentPath === '/') {
-            window.location.href = '/';
+        if (currentPath === '/my-posts') {
+            window.location.href = '/my-posts';
         } else if (currentPath === '/browse') {
             window.location.href = '/browse';
         }
     });
 }
 
-if(currentPath === '/' | currentPath==='/browse'){
+if(currentPath === '/my-posts' | currentPath==='/browse'){
+
     const cards = document.querySelectorAll('.card');
 
     cards.forEach(card => {
@@ -49,7 +50,7 @@ if(currentPath === '/' | currentPath==='/browse'){
     });
 }
 
-if(currentPath === '/'){
+if(currentPath === '/my-posts'){
     const textarea = document.getElementById('note');
     const counter = document.getElementById('counter');
     const maxCount = 1500;
@@ -60,3 +61,18 @@ if(currentPath === '/'){
     });
 }
 
+if(currentPath === '/browse'){
+    document.getElementById("browse").style.color = "white";
+}
+if(currentPath === '/my-posts'){
+    document.getElementById("home").style.color = "white";
+}
+if(currentPath === '/login'){
+    document.getElementById("login").style.color = "white";
+}
+if(currentPath === '/sign-up'){
+    document.getElementById("signUp").style.color = "white";
+}
+if(currentPath === '/logout'){
+    document.getElementById("logout").style.color = "white";
+}

@@ -4,6 +4,10 @@ from flask_uploads import UploadSet, IMAGES, configure_uploads
 from . import db
 from .models import Note, User
 import json
+from tempfile import NamedTemporaryFile
+import shutil
+import base64
+from io import BytesIO
 from Website import create_app
 from os import path
 
@@ -14,7 +18,8 @@ photos = UploadSet('photos', IMAGES)  # Create an UploadSet for photo files
 @views.route('/my-posts', methods=['GET', 'POST'])
 @login_required
 def home():
-    if request.method == 'POST':
+    form_identifier = request.form.get('formIdentifier')
+    if request.method == 'POST' and form_identifier=='note_post':
         note = request.form.get('note')
         title = request.form.get('title')
         image = request.files.get('image')
@@ -43,6 +48,15 @@ def home():
             db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
+
+    if request.method == 'POST' and form_identifier == 'profile_photo_change':
+        image = request.files.get('newProfileImage')
+        configure_uploads(current_app, photos)
+
+        filename = photos.save(image)
+        current_user.profile_photo = filename
+        db.session.commit()
+        flash('Profile Photo Successfully Changed!', category='success')
 
     user = User.query.get(current_user.id)
     allUsers = User.query.all()

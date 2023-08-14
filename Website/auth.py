@@ -113,7 +113,8 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'))
+            default_photo = "blank-profile-picture.jpg"
+            new_user = User(email=email, first_name=first_name, password=generate_password_hash(password1, method='sha256'), profile_photo=default_photo)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
@@ -125,3 +126,11 @@ def sign_up():
 @auth.route('/', methods=['GET', 'POST'])
 def redirect_to_browse():
     return redirect(url_for('auth.browse'))
+
+
+@auth.route('/<username>')
+def user_profile(username):
+    user = User.query.filter_by(first_name=username).first()  # Fetch user based on username
+    allUsers = User.query.all()
+    reversed_notes = list(reversed(user.notes))
+    return render_template('profile.html', username=username, myuser=user, user=current_user, reversed_notes=reversed_notes, allUsers=allUsers)

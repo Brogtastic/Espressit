@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="container-container">
+    <div class="thiscontainer">
+        <img src="{{ url_for('static', filename='uploads/' + myuser.profile_photo) }}" style="object-fit: cover; width: 150px; height: 150px; border-radius: 50%;" alt="ProfilePhoto">
+    </div>
+    <div style="font-size:75px">
+        {{ myuser.first_name }}
+    </div>
+</div>
+
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<br />
+
+<br />
+<ul class="list-group list-group-flush mb-3 align-items-center justify-content-center" id="notes">
+    {% for note in reversed_notes %}
+    <div class="card mb-3" style="max-width: 800px; min-width: 400px;">
+        <div style="background: #D6EAF8; border-radius: 5px 5px 0px 0px; border-color: #5DADE2; padding: 10px; display: flex;">
+            <img src="{{ url_for('static', filename='uploads/' + myuser.profile_photo) }}" alt="profile photo" style="border-radius:50%; height: 37px; width: 37px; object-fit: cover; border: 2px solid #5DADE2;;">
+            <div style="font-size: 23px; margin-left: 10px;">{{ myuser.first_name }}</div>
+        </div>
+      <div class="row g-0">
+        {% if note.image %}
+        <div class="col-md-4">
+                <img src="{{ url_for('static', filename='uploads/' + note.image) }}" style="width: auto; max-width: 240px; height: auto; min-height: 152px; border-radius: 3%;" alt="Image">
+        </div>
+        {% endif %}
+        <div class="{% if note.image %}col-md-8{% else %}col-md-10.5{% endif %}">
+            <div class="card-body d-flex flex-column h-100" style="{% if note.imageWidth > note.imageHeight %} padding-left:5rem; {% else %} padding-left: 2rem; min-width:460px{% endif %}">
+                <h4 class="card-title">{{ note.title }}</h4>
+                <p class="card-text">{{ note.data }}</p>
+                <div class="mt-auto">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <p class="card-text">
+                                <small class="text-body-secondary">
+                                    {% if note.visibility == 2 %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16" style="opacity: 0.5;">
+                                      <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                    </svg>
+                                    {% endif %}
+                                    {{ note.dateParsed }}
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+<br/>
+</ul>
+{% endblock %}
