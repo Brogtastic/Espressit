@@ -62,6 +62,15 @@ def browse():
             print("Search: " + search)
             search_filter = request.form.get('filter')
 
+            # Search Titles
+            if search_filter == '0':
+                for note in allNotes:
+                    myuser = get_user_by_id(note.user_id)
+                    if (search.lower() in note.title.lower()) or (search.lower() in note.data.lower()) or (search.lower() in myuser.first_name.lower()):
+                        note.presentInSearch = True
+                    else:
+                        note.presentInSearch = False
+
             #Search Titles
             if search_filter == '1':
                 for note in allNotes:

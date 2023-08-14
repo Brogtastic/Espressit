@@ -17,7 +17,7 @@ Title
 Username
 Content
 -->
-<div class="row justify-content-center">
+<div class="row justify-content-center" style="padding-right: 175px;">
     <form method="POST" enctype="multipart/form-data" id="postWriting" class="col-md-4 mb-3">
         <div class="d-flex">
             <input id="search" name="search" class="form-control me-2 col-md-8" type="search" placeholder="Search" aria-label="Search" value= {{ search }}>
@@ -27,6 +27,7 @@ Content
 
                 <div class="btn-group" role="group">
                     <select  class="btn dropdown-toggle btn-outline-success" data-bs-toggle="dropdown" aria-expanded="false" name="filter" id="filter">
+                        <option class="dropdown-item" onclick="changeDropdownText('All Notes ')" value="0" {% if search_filter == '0' %} selected {% endif %}>All Notes</option>
                         <option class="dropdown-item" onclick="changeDropdownText('by Title ')" value="1" {% if search_filter == '1' %} selected {% endif %}>by Title</option>
                         <option class="dropdown-item" onclick="changeDropdownText('by Content ')" value="2" {% if search_filter == '2' %} selected {% endif %}>by Content</option>
                         <option class="dropdown-item" onclick="changeDropdownText('by User ')" value="3" {% if search_filter == '3' %} selected {% endif %}>by User</option>

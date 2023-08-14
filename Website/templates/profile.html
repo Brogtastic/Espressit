@@ -20,6 +20,7 @@
 <br />
 <ul class="list-group list-group-flush mb-3 align-items-center justify-content-center" id="notes">
     {% for note in reversed_notes %}
+    {% if note.visibility == 1 %}
     <div class="card mb-3" style="max-width: 800px; min-width: 400px;">
         <div style="background: #D6EAF8; border-radius: 5px 5px 0px 0px; border-color: #5DADE2; padding: 10px; display: flex;">
             <img src="{{ url_for('static', filename='uploads/' + myuser.profile_photo) }}" alt="profile photo" style="border-radius:50%; height: 37px; width: 37px; object-fit: cover; border: 2px solid #5DADE2;;">
@@ -55,6 +56,7 @@
         </div>
       </div>
     </div>
+    {% endif %}
     {% endfor %}
 <br/>
 </ul>
